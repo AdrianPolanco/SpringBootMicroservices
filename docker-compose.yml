@@ -1,0 +1,44 @@
+version: "3"
+services:
+  #Inventory microservice PostgreSQL Database
+  db_inventory:
+    container_name: db_inventory
+    image: postgres:15.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${INVENTORY_NAME}
+      POSTGRES_USER: ${INVENTORY_USER}
+      POSTGRES_PASSWORD: ${INVENTORY_PASSWORD}
+    ports:
+      - "${INVENTORY_PORT}:${INVENTORY_PORT}"
+    expose:
+      - ${INVENTORY_PORT}
+    command: -p ${INVENTORY_PORT}
+  #Orders microservice MySQL Database
+  db_orders:
+    container_name: db_orders
+    image: mysql:8.0.33
+    restart: unless-stopped
+    environment:
+      MYSQL_DB: ${ORDERS_NAME}
+      MYSQL_USER: ${ORDERS_USER}
+      MYSQL_PASSWORD: ${ORDERS_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${ORDERS_ROOT_PASSWORD}
+    ports:
+      - "${LOCAL_ORDERS_PORT}:${ORDERS_PORT}"
+    expose:
+      - ${ORDERS_PORT}
+  #Products microservice PostgreSQL Database
+  db_products:
+    container_name: db_products
+    image: postgres:15.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${PRODUCTS_NAME}
+      POSTGRES_USER: ${PRODUCTS_USER}
+      POSTGRES_PASSWORD: ${PRODUCTS_PASSWORD}
+    ports:
+      - "${PRODUCTS_PORT}:${PRODUCTS_PORT}"
+    expose:
+      - ${PRODUCTS_PORT}
+    command: -p ${PRODUCTS_PORT}
