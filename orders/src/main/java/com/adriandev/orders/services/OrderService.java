@@ -27,7 +27,7 @@ public class OrderService {
         //Verificar si hay stock
         BaseResponse result = this.webClientBuilder.build()
                 .post() //HTTP Method
-                .uri("http://localhost:8083/api/inventory/in-stock") //Route that will be fetched
+                .uri("lb://inventory/api/inventory/in-stock") //Route that will be fetched
                 .bodyValue(orderRequest.getOrderItems()) //Request body
                 .retrieve() //Execution of the request
                 .bodyToMono(BaseResponse.class)//Converting the response to a Mono, that is a Publisher that emits one or zero elements
